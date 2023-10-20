@@ -12,8 +12,7 @@ shinylive::export(
 ## remotes::install_github("rstudio/httpuv")
 httpuv::runStaticServer(
   dir = "docs", 
-  port = 8888,
-  background = TRUE
+  port = 8888
   )
 
 

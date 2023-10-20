@@ -7,7 +7,7 @@ d <- mtcars
 d$car_types <- rownames(d)
 d <- d[,c("car_types","mpg", "cyl", "am", "disp", "wt")]
 d$cyl <- as.factor(d$cyl)
-d$am <- as.factor(am)
+d$am <- as.factor(d$am)
 
 ### UI
 ui <- fluidPage(
@@ -41,20 +41,6 @@ ui <- fluidPage(
 
 ### Server
 server <- function(input, output, session){
-  
-  ## update based on URL parameters
-  observe({
-
-    query <- parseQueryString(session$clientData$url_search)
-
-    if(!is.null(query[['cyl']])){
-      updateSelectInput(session, "cyl", selected = query[['cyl']])
-    }
-
-    if(!is.null(query[['am']])){
-      updateSelectInput(session, "am", selected = query[["am"]])
-    }
-  })
   
   ## get data
   dat <- reactive({
