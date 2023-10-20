@@ -2,7 +2,7 @@
 library(shiny)
 library(ggplot2)
 
-## base R!s
+## base R!
 d <- mtcars
 d$car_types <- rownames(d)
 d <- d[,c("car_types","mpg", "cyl", "am", "disp", "wt")]
@@ -42,6 +42,8 @@ ui <- fluidPage(
 ### Server
 server <- function(input, output, session){
   
+  ## NO URL QUERY PARSING FOR YOU
+  
   ## get data
   dat <- reactive({
     d[d$cyl == input$cyl & d$am == input$am, ]
@@ -50,7 +52,7 @@ server <- function(input, output, session){
   ## xy plot
   output$xy_plt <- renderPlot({
     
-    dat() %>%
+    dat() |>
       ggplot(aes(x = disp, y = mpg)) +
       geom_jitter(size = 5,
                   color = "green") +
@@ -65,7 +67,7 @@ server <- function(input, output, session){
   ## hist plot
   output$hist_plt <- renderPlot({
     
-    dat() %>%
+    dat() |>
       ggplot(aes(x = "1", y = wt)) +
       geom_boxplot(color = "black",
                    fill = "light grey") +
@@ -77,6 +79,7 @@ server <- function(input, output, session){
   output$tbl <- renderTable({
     dat()[,"car_types"]
   })
+  
 }
 
 
